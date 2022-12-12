@@ -1,5 +1,9 @@
 <app-header></app-header>
 <main>
-    <app-post-create></app-post-create>
-    <app-post-list></app-post-list>
+    <!-- ($event) gives you access to data that you emitted. -->
+    <!-- So here we are listening to the postCreated event... -->
+    <!-- When we hear it, we run onPostAdded -->
+    <!-- onPostAdded() will store post in storedPosts -->
+    <app-post-create (postCreated)="onPostAdded($event)"></app-post-create>
+    <app-post-list [posts]="storedPosts"></app-post-list>
 </main>

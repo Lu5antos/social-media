@@ -1,9 +1,31 @@
 <mat-card>
-    <mat-form-field>
-        <textarea matInput rows="8" [(ngModel)]="enteredValue"></textarea>
-    </mat-form-field>
-    <button 
-    mat-raised-button 
-    color="primary"
-    (click)="onAddPost()">Save Post</button>
+    <!-- submitting a form triggers a SUBMIT form event where we can trigger the onAddPost method -->
+    <form (submit)="onAddPost(postForm)" #postForm="ngForm">
+        <!-- postForm give us access to the object created by this form, and we pass that object to onAddPost -->
+        <mat-form-field>
+            <input 
+            matInput 
+            type="text" 
+            name="title"
+            ngModel
+            required
+            minlength="3"
+            #title="ngModel">
+            <mat-error *ngIf="title.invalid">Please enter a title for your post</mat-error>
+        </mat-form-field>
+        <mat-form-field>
+            <textarea 
+            matInput 
+            rows="8" 
+            name="content"
+            ngModel
+            required
+            #content="ngModel"></textarea>
+            <mat-error *ngIf="content.invalid">Please text for your content</mat-error>
+        </mat-form-field>
+        <button 
+        mat-raised-button 
+        color="primary" 
+        type="submit">Save Post</button>
+    </form>
 </mat-card>
