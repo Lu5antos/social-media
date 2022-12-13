@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 
 import { Post } from '../post.model';
+import { PostService } from '../post.service';
 
 @Component({
   selector: 'app-post-list',
@@ -28,7 +29,9 @@ export class PostListComponent implements OnInit {
   @Input()
     posts: Post[] = [];
 
-  constructor() { }
+  // We use Dependency Injection in the PostList constructor to have excess to the PostService.
+  // We then store the instance of PostService class in the postService property.
+  constructor(public postService: PostService) { }
 
   ngOnInit(): void {
   }
