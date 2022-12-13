@@ -1,4 +1,5 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnDestroy, OnInit, } from '@angular/core';
+import { Subscription } from 'rxjs';
 
 import { Post } from '../post.model';
 import { PostService } from '../post.service';
@@ -8,7 +9,7 @@ import { PostService } from '../post.service';
   templateUrl: './post-list.component.html',
   styleUrls: ['./post-list.component.css']
 })
-export class PostListComponent implements OnInit {
+export class PostListComponent implements OnInit, OnDestroy {
   // posts = [
   //   {
   //     title: 'First Post',
@@ -26,14 +27,27 @@ export class PostListComponent implements OnInit {
 
   // INPUT allows you to receive data from direct parent component (CreatePost)
  
-  @Input()
-    posts: Post[] = [];
+ 
+  posts: Post[] = [];
+  private postsSub: Subscription;
 
   // We use Dependency Injection in the PostList constructor to have excess to the PostService.
   // We then store the instance of PostService class in the postService property.
-  constructor(public postService: PostService) { }
+  constructor(public postsService: PostService) { }
 
+  // Angular runs this methods at the begining of it's life cycle
+  // Do basic intialization tasks here
   ngOnInit(): void {
+    this.posts = this.postsService.getPosts();
+    this.postsSub = this.postsService.getPostUpdateListener()
+      .subscribe((posts: Post[]) => {
+        this.posts = posts;
+      });
+  }
+
+  ngOnDestroy(): void {
+    // removes subscriptions and prevents memory leaks
+      this.postsSub.unsubscribe();
   }
 
 }
