@@ -10,23 +10,8 @@ import { PostService } from '../post.service';
   styleUrls: ['./post-list.component.css']
 })
 export class PostListComponent implements OnInit, OnDestroy {
-  // posts = [
-  //   {
-  //     title: 'First Post',
-  //     content: 'This is this the first post'
-  //   },
-  //   {
-  //     title: 'Second Post',
-  //     content: 'This is this the Second post'
-  //   },
-  //   {
-  //     title: 'Third Post',
-  //     content: 'This is this the Third post'
-  //   }
-  // ]
 
   // INPUT allows you to receive data from direct parent component (CreatePost)
- 
  
   posts: Post[] = [];
   private postsSub: Subscription;

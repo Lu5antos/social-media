@@ -28,7 +28,7 @@ export class PostService {
 
     addPost(title: string, content: string) {
         const post: Post = {
-            id: '',
+            id: null,
             title: title,
             content: content
         };
