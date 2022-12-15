@@ -34,9 +34,21 @@ export class PostService {
             });
     }
 
+    getPost(id: string) {
+        // spread operator(...) allows your to remove all the properties from and object and adds them to a new object so that the original object is not changed
+        return {...this.posts.find(p => p.id === id)};
+    }
+
     // this allows us to listen to Observables (Subjects(postUpdated))
     getPostUpdateListener() {
         return this.postUpdated.asObservable();
+    }
+
+    updatePost(id: string, title: string, content: string) {
+        const post: Post = { id: id, title: title, content: content };
+        this.http.put(`http://localhost:3000/api/posts/${id}`, post)
+        .subscribe(response => console.log((response))
+        )
     }
 
     addPost(title: string, content: string) {
