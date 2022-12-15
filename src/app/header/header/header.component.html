@@ -1,1 +1,15 @@
-<mat-toolbar color="primary">The Toolbar</mat-toolbar>
+<mat-toolbar color="primary">
+    <span routerLink="">
+        <a routerLink="">
+            <mat-icon fontIcon="home" class="home-btn" routerLinkActive="mat-accent" routerLink="">home</mat-icon>
+        </a>
+    </span>
+    <span class="spacer"></span>
+    <ul>
+        <li>
+            <a mat-button routerLink="/create" routerLinkActive="mat-accent"> Add New Post </a>
+        </li>
+    </ul>
+</mat-toolbar>
+
+<!-- aria-hidden="false" aria-label="Example home icon"  -->
