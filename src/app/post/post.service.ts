@@ -18,7 +18,7 @@ export class PostService {
 
     getPosts() {
         this.http
-        .get<{ message: string, posts: any }>(`http://localhost:3000/api/posts`)
+            .get<{ message: string, posts: any }>(`http://localhost:3000/api/posts`)
             .pipe(map((postData) => {
                 return postData.posts.map(post => {
                     return {
@@ -35,9 +35,10 @@ export class PostService {
     }
 
     getPost(id: string) {
-        // spread operator(...) allows your to remove all the properties from and object and adds them to a new object so that the original object is not changed
-        return {...this.posts.find(p => p.id === id)};
-    }
+        return this.http.get<{ _id: string; title: string; content: string }>(
+            `http://localhost:3000/api/posts/${id}`
+            );
+        };
 
     // this allows us to listen to Observables (Subjects(postUpdated))
     getPostUpdateListener() {
@@ -46,9 +47,16 @@ export class PostService {
 
     updatePost(id: string, title: string, content: string) {
         const post: Post = { id: id, title: title, content: content };
-        this.http.put(`http://localhost:3000/api/posts/${id}`, post)
-        .subscribe(response => console.log((response))
-        )
+        this.http
+            .put(`http://localhost:3000/api/posts/${id}`, post)
+            .subscribe(response => {
+                const updatedPosts = [...this.posts];
+                const oldPostIndex = updatedPosts.findIndex(p => p.id === post.id);
+                updatedPosts[oldPostIndex] = post;
+                this.posts = updatedPosts;
+                this.postUpdated.next([...this.posts]);
+            }
+            )
     }
 
     addPost(title: string, content: string) {
@@ -70,10 +78,10 @@ export class PostService {
 
     deletePost(postId: string) {
         this.http.delete(`http://localhost:3000/api/posts/${postId}`)
-        .subscribe(() => {
-            const updatedPosts = this.posts.filter(post => post.id !== postId);
-            this.posts = updatedPosts;
-            this.postUpdated.next([...this.posts]);
-        });
+            .subscribe(() => {
+                const updatedPosts = this.posts.filter(post => post.id !== postId);
+                this.posts = updatedPosts;
+                this.postUpdated.next([...this.posts]);
+            });
     }
 }
