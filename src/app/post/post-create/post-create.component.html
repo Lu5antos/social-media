@@ -1,30 +1,29 @@
 <mat-card>
     <mat-spinner *ngIf="isLoading"></mat-spinner>
     <!-- submitting a form triggers a SUBMIT form event where we can trigger the onSavePost method -->
-    <form (submit)="onSavePost(postForm)" #postForm="ngForm" ngIf="!isLoading">
+    <form [formGroup]="form" (submit)="onSavePost()"  ngIf="!isLoading">
         <!-- postForm give us access to the object created by this form, and we pass that object to onSavePost -->
         <mat-form-field>
             <input 
             matInput 
             type="text" 
-            name="title"
-            [ngModel]="post?.title"
-            required
-            minlength="3"
+            formControlName="title"
             placeholder="Post Title"
-            #title="ngModel">
-            <mat-error *ngIf="title.invalid">Please enter a title for your post</mat-error>
+            >
+            <mat-error *ngIf="form.get('title').invalid">Please enter a title for your post</mat-error>
         </mat-form-field>
+        <div>
+            <button mat-stroked-button type="button" (click)="filePicker.click()">Select Image</button>
+            <input type="file" #filePicker>
+        </div>
         <mat-form-field>
             <textarea 
             matInput 
             rows="8" 
-            name="content"
-            [ngModel]="post?.content"
-            required
+            formControlName="content"
             placeholder="Post Content"
-            #content="ngModel"></textarea>
-            <mat-error *ngIf="content.invalid">Please text for your content</mat-error>
+            ></textarea>
+            <mat-error *ngIf="form.get('content').invalid">Please text for your content</mat-error>
         </mat-form-field>
         <button 
         mat-raised-button 
