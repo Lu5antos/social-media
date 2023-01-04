@@ -13,6 +13,7 @@ import { MatToolbarModule  } from '@angular/material/toolbar';
 import { MatExpansionModule  } from '@angular/material/expansion';
 import { HttpClientModule } from '@angular/common/http';
 import { MatIconModule } from '@angular/material/icon';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner'
 
 // Components
 import { AppComponent } from './app.component';
@@ -41,6 +42,7 @@ import { PostListComponent } from './post/post-list/post-list.component';
     MatExpansionModule,
     HttpClientModule,
     MatIconModule,
+    MatProgressSpinnerModule,
 
   ],
   providers: [],

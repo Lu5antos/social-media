@@ -14,6 +14,7 @@ export class PostListComponent implements OnInit, OnDestroy {
   // INPUT allows you to receive data from direct parent component (CreatePost)
  
   posts: Post[] = [];
+  isLoading = false;
   private postsSub: Subscription;
 
   // We use Dependency Injection in the PostList constructor to have excess to the PostService.
@@ -23,9 +24,11 @@ export class PostListComponent implements OnInit, OnDestroy {
   // Angular runs this methods at the begining of it's life cycle
   // Do basic intialization tasks here
   ngOnInit(): void {
+    this.isLoading = true;
     this.postsService.getPosts();
     this.postsSub = this.postsService.getPostUpdateListener()
       .subscribe((posts: Post[]) => {
+        this.isLoading = false;
         this.posts = posts;
       });
   }
