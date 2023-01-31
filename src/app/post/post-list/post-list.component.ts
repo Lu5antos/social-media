@@ -12,9 +12,12 @@ import { PostService } from '../post.service';
 export class PostListComponent implements OnInit, OnDestroy {
 
   // INPUT allows you to receive data from direct parent component (CreatePost)
- 
+
   posts: Post[] = [];
   isLoading = false;
+  totalPosts: number = 10;
+  postPerPage: number = 5;
+  pageSizeOptions: Array<number> = [1, 2, 5, 10];
   private postsSub: Subscription;
 
   // We use Dependency Injection in the PostList constructor to have excess to the PostService.
@@ -33,13 +36,13 @@ export class PostListComponent implements OnInit, OnDestroy {
       });
   }
 
-  onDelete(postId: string){
+  onDelete(postId: string) {
     this.postsService.deletePost(postId);
   }
 
   ngOnDestroy(): void {
     // removes subscriptions and prevents memory leaks
-      this.postsSub.unsubscribe();
+    this.postsSub.unsubscribe();
   }
 
 }
