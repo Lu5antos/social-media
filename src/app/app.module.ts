@@ -1,7 +1,7 @@
 // Angular Core Imports
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 
@@ -21,6 +21,7 @@ import { AppComponent } from './app.component';
 import { PostCreateComponent } from './post/post-create/post-create.component';
 import { HeaderComponent } from './header/header/header.component';
 import { PostListComponent } from './post/post-list/post-list.component';
+import { LoginComponent } from './auth/login/login/login.component';
 
 
 
@@ -30,11 +31,13 @@ import { PostListComponent } from './post/post-list/post-list.component';
     PostCreateComponent,
     HeaderComponent,
     PostListComponent,
+    LoginComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
+    FormsModule,
     BrowserAnimationsModule,
     MatInputModule,
     MatCardModule,
