@@ -22,6 +22,7 @@ import { PostCreateComponent } from './post/post-create/post-create.component';
 import { HeaderComponent } from './header/header/header.component';
 import { PostListComponent } from './post/post-list/post-list.component';
 import { LoginComponent } from './auth/login/login/login.component';
+import { SignupComponent } from './auth/signup/signup/signup.component';
 
 
 
@@ -32,6 +33,7 @@ import { LoginComponent } from './auth/login/login/login.component';
     HeaderComponent,
     PostListComponent,
     LoginComponent,
+    SignupComponent,
   ],
   imports: [
     BrowserModule,
